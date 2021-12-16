@@ -6,7 +6,7 @@ import glob
 
 def text_preprocessing(doc):
     # remove html tags
-    doc = re.sub(r'<[^<>$]*>', '', doc)
+    doc = re.sub(r'<[^<]*>', '', doc)
     
     # to lower case
     doc = doc.lower()
