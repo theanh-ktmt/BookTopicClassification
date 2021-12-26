@@ -23,14 +23,14 @@ def text_preprocessing(doc):
 
     return doc
 
-def load_data(filepath):
-    print('LOAD DATASET')
-    df = pd.read_csv(filepath)
-    df = df[['name', 'introduction', 'topic']]
-    df = df.dropna(thresh=2) # Loại bỏ dòng nếu có ô trống, giữu lại những dòng có ít nhất 2 ô dữ liệu
+# def load_data(filepath):
+#     print('LOAD DATASET')
+#     df = pd.read_csv(filepath)
+#     df = df[['name', 'introduction', 'topic']]
+#     df = df.dropna(thresh=2) # Loại bỏ dòng nếu có ô trống, giữu lại những dòng có ít nhất 2 ô dữ liệu
 
-    print('Done \n')
-    return df.values # numpy.array
+#     print('Done \n')
+#     return df.values # numpy.array
 
 class BookDatabaseProcessor:
     def __init__(self, folder_path, save_path, top=100, threshold=2):
@@ -223,7 +223,7 @@ if __name__ == '__main__':
     top = 100
     threshold = 2
 
-    bookprocessor = BookDatabaseProcessor(data_folder, save_link, top=100, threshold=2)
+    bookprocessor = BookDatabaseProcessor(data_folder, save_link, top, threshold)
     bookprocessor.dataset_preprocessing()
 
     print('Complete preprocessing data \n')
