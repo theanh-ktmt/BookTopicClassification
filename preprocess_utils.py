@@ -219,7 +219,7 @@ class SingleBookPreprocess():
 if __name__ == '__main__':
     # declare variable
     data_folder = './data'
-    save_link = './data/preprocessed_data.csv'
+    save_link = './preprocessed_data/preprocessed_data.csv'
     top = 100
     threshold = 2
 
