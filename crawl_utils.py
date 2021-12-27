@@ -254,7 +254,7 @@ class VinaBookContentCrawler:
         # df = pd.DataFrame(content_list)
         # df.to_csv(save_path, mode='a')
         link_data = os.getcwd()
-        save_path = link_data + "/data/" + save_path
+        save_path = link_data + "/data/data_" + save_path
 
         content = self.get_contents_by_label(link_dir + '/' + file)
            
@@ -269,7 +269,7 @@ if __name__ == '__main__':
     link_dir = './crawl_links'
     link_dir_data = './data'
     
-     # Crawl links
+    # Crawl links
     f = open('link_templates.txt', 'r').read()
     links = f.split('\n')
     
@@ -306,5 +306,3 @@ if __name__ == '__main__':
     url = "https://www.vinabook.com/bi-quyet-hoi-hoa-ve-tranh-phong-canh-p94187.html"
     data = crawler.get_content(url, label="demo")
     print(data)
-
-

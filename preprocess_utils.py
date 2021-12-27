@@ -81,12 +81,13 @@ class BookDatabaseProcessor:
 
     def remove_words(self, doc, list_words):
         # remove words in word list
-        doc_list = doc.split()
-        for word in list_words:
-            while word in doc_list:
-                doc_list.remove(word)
+        words = doc.split(' ')
+        res = list()
+        for word in words:
+            if word not in list_words:
+                res.append(word)
         
-        return ' '.join(doc_list)
+        return ' '.join(res)
 
     def get_stopword_and_uniqueword_list(self, inputs):
         print('Counting words ... ')
