@@ -1,4 +1,4 @@
-import re
+﻿import re
 from underthesea import word_tokenize
 import pandas as pd
 from tqdm import tqdm
@@ -20,6 +20,9 @@ def text_preprocessing(doc):
 
     # replace mutiple space with single space
     doc = re.sub(r'\s+', ' ', doc).strip()
+
+    # replace mutiple line breaks with single space
+    doc = re.sub(r'\n+', ' ', doc)
 
     return doc
 
@@ -55,7 +58,7 @@ class BookDatabaseProcessor:
                 continue
 
         data = pd.concat(content)
-        data.dropna(thresh=2) # Loại bỏ dòng nếu có ô trống, giữu lại những dòng có ít nhất 2 ô dữ liệu
+        data = data.dropna() # Loại bỏ dòng nếu có ô trống, giữu lại những dòng có ít nhất 2 ô dữ liệu
         
         print('Done \n')
         return(data.values)
