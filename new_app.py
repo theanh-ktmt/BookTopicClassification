@@ -202,16 +202,6 @@ def show_info():
     content.insert(END, all_inf0['introduction'])
     content.pack(padx=2, pady=2)
 
-
-    # result = Text(infoWindow, fg='gray', width=114, height=20, bd=1, bg='#f0f0f0')
-    # result.config(font=S_FONT)
-    # result.pack(pady=10)
-
-    # result.insert(END, book_info)
-
-    
-
-
 def startThread():
     thread = Thread(target=processing)
     thread.start()
