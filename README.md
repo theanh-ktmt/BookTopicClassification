@@ -27,7 +27,7 @@ Giáo viên hướng dẫn: PGS. TS. **Thân Quang Khoát**
 
 ![Giao diện chính](./images/demo1.png)
 
-- Bước 2: Nhập một đường dẫn của một quyển sách bất kỳ từ Vinabook và ấn Process
+- Bước 2: Nhập một đường dẫn của một quyển sách bất kỳ từ Vinabook và ấn Process. Ví dụ: https://www.vinabook.com/nhung-toa-nha-choc-troi-p67209.html
 
 ![Kết quả](./images/demo2.png)
 
