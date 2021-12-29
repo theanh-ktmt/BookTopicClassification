@@ -3,6 +3,7 @@ from underthesea import word_tokenize
 import pandas as pd
 from tqdm import tqdm
 import glob
+import pickle
 
 def text_preprocessing(doc):
     # remove html tags
@@ -116,7 +117,7 @@ class BookDatabaseProcessor:
         for word in count:
             if count[word] < self.threshold:
                 uniquewords.append(word)
-
+        
         print('Done \n')
         return stopwords, uniquewords
 
@@ -146,6 +147,9 @@ class BookDatabaseProcessor:
         # get stop word and unique word 
         stopwords, uniquewords = self.get_stopword_and_uniqueword_list(inputs)
 
+        # save stopwords and uniquewords
+        pickle.dump(stopwords, open('./saved_model/stopwords.sav', 'wb'))
+        pickle.dump(uniquewords, open('./saved_model/uniquewords.sav', 'wb'))
     
         # preprocess inputs, filter inputs by remove stop word and unique word
         print('Preprocessing data ...')
@@ -162,63 +166,34 @@ class BookDatabaseProcessor:
         
 
 class SingleBookPreprocess():
-    def __init__(self, book_data):
-        self.book_data = book_data
 
-    def get_stopword_and_uniqueword_list(self, input):
-        top = 10
-        threshold = 2
-
-        # count the number of each word in input word list
-        count = {}
-        words = input.split()
-        for word in words:
-            if word not in count:
-                count[word] = 1
-            else:
-                count[word] += 1
-
-        # sort list word by decreasing value
-        sorted_count = sorted(count, key=count.get, reverse=True)
-
-        # find stopwords
-        stopwords = sorted_count[:top]
-
-        # find unique words
-        uniquewords = []
-        for word in count:
-            if count[word] <= threshold:
-                uniquewords.append(word)
-
-        input = self.remove_words(input, stopwords)
-        input = self.remove_words(input, uniquewords)
-        return input
-    
+    def __init__(self, stopwords, uniquewords):
+        self.stopwords = stopwords
+        self.uniquewords = uniquewords
 
     def remove_words(self, doc, list_words):
         # remove words in word list
-        doc_list = doc.split()
-        for word in list_words:
-            while word in doc_list:
-                doc_list.remove(word)
+        words = doc.split(' ')
+        res = list()
+        for word in words:
+            if word not in list_words:
+                res.append(word)
         
-        return ' '.join(doc_list)
+        return ' '.join(res)
 
-    def single_book_preprocessing(self):
-        
-        name = self.book_data['name']
-        introduction = self.book_data['introduction']
-        topic = self.book_data['topic']
-
+    def single_book_preprocessing(self, book_data):
+        name = book_data['name']
+        introduction = book_data['introduction']
+        topic = book_data['topic']
 
         input = f'{name} {introduction} {name}'
-        output = topic
 
         # preprocess
         input = text_preprocessing(input)
-        input = self.get_stopword_and_uniqueword_list(input)
+        input = self.remove_words(input, self.stopwords)
+        input = self.remove_words(input, self.uniquewords)
 
-        return input, output
+        return input, topic
 
 if __name__ == '__main__':
     # declare variable
